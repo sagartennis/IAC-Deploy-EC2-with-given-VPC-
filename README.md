@@ -54,8 +54,10 @@ myWebServerInstance:
           - Ref: "type your Securitygroup name"
         SubnetId: your subnet to the defualt VPC
 ```
+
 After the Script is complete. Enter the following command 
-'''
+
+```
 aws cloudformation create-stack --stack-name vpc --region us-west-2 --template-body file://createVPC.yml
 ```
 
