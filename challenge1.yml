@@ -1,0 +1,45 @@
+Description : >
+  This is the challenge program of the Udacity NanoDegree - Cloud DevOps Engineer program. 
+  This script will create two resources. 
+  1. Create a EC2 instance. 
+  2. Use the default VPC to allow all non-restricted outbound access. 
+Resources:
+  myWebAccessSecurityGroup:
+    
+
+    Type: AWS::EC2::SecurityGroup
+    Properties:
+      GroupDescription: Allow http to test host
+      VpcId: vpc-0e0b2576
+         
+      SecurityGroupIngress:
+      - IpProtocol: tcp
+        FromPort: 80
+        ToPort: 80
+        CidrIp: 0.0.0.0/0
+      SecurityGroupEgress:
+      - IpProtocol: -1
+        FromPort: -1
+        ToPort: -1
+        CidrIp: 0.0.0.0/0
+  myWebServerInstance: 
+    Type: AWS::EC2::Instance
+    Properties: 
+      ImageId: ami-0518bb0e75d3619ca
+      InstanceType: t3.micro
+      NetworkInterfaces: 
+      - AssociatePublicIpAddress: "true"
+        DeviceIndex: "0"
+        GroupSet: 
+          - Ref: "myWebAccessSecurityGroup"
+        SubnetId: subnet-8b04a1c1
+          
+      UserData:
+        Fn::Base64: !Sub |
+          #!/bin/bash
+          yum update -y
+          yum install -y httpd
+          systemctl start httpd
+          systemctl enable httpd
+  
+      
