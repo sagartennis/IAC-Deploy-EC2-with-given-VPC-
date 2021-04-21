@@ -38,3 +38,32 @@ The Second one is deplying a EC2 instance to that is attached to this VPC.
 ```
 
 Make sure that outbound (SecurityGroupEgress) is set to -1. This means that all activities are allowed. 
+
+### STEP 4 ### 
+
+```
+myWebServerInstance: 
+    Type: AWS::EC2::Instance
+    Properties: 
+      ImageId: type your ami ID
+      InstanceType: t3.micro
+      NetworkInterfaces: 
+      - AssociatePublicIpAddress: "true"
+        DeviceIndex: "0"
+        GroupSet: 
+          - Ref: "type your Securitygroup name"
+        SubnetId: your subnet to the defualt VPC
+```
+After the Script is complete. Enter the following command 
+'''
+aws cloudformation create-stack --stack-name vpc --region us-west-2 --template-body file://createVPC.yml
+```
+
+### STEP 5 ###
+
+Copy and paste this Apache script to check if the cloudformation script works correctly. 
+Make sure to change https to http when you copy paste the  public IP adress in the browser. 
+
+### STEP 6 ###
+
+Expected outcome is a test page on the browser. 
