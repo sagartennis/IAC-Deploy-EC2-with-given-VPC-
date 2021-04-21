@@ -54,16 +54,27 @@ myWebServerInstance:
           - Ref: "type your Securitygroup name"
         SubnetId: your subnet to the defualt VPC
 ```
+Copy and paste this Apache script.
 
-After the Script is complete. Enter the following command 
+```
+UserData:
+       Fn::Base64: !Sub |
+         #!/bin/bash
+         sudo yum update -y
+         sudo yum install -y httpd
+         sudo systemctl start httpd
+         sudo systemctl enable httpd
+```
+After the Script is complete. Enter the following command in the terminal
 
 ```
 aws cloudformation create-stack --stack-name vpc --region us-west-2 --template-body file://createVPC.yml
 ```
+Then Check the CloudFormation console to see if the stack is created. Also go to the EC2 instance dashboard. Navigate to the instance that was created. 
 
 ### STEP 5 ###
 
-Copy and paste this Apache script to check if the cloudformation script works correctly. 
+Copy the public IP adress. 
 Make sure to change https to http when you copy paste the  public IP adress in the browser. 
 
 ### STEP 6 ###
