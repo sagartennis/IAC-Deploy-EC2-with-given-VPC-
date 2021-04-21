@@ -5,6 +5,8 @@ Create an EC2 instance with a default VPC. The default VPC is selected to make t
 ### STEP 1 ###
 
 Make sure to have a default VPC. Most of the users with an AWS account will have a default VPC. Go to the search bar and type VPC. It will take you to the VPC Dashboard. 
+Note down VPC ID
+Note down Subnet ID
 
 ### STEP 2 ###
 
